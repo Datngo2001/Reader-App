@@ -96,8 +96,6 @@ public class ProfileFragment extends Fragment {
         }
         username.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
-        phone.setText(currentUser.getPhone());
-        address.setText(currentUser.getAddress());
 
         return view;
     }
@@ -109,7 +107,7 @@ public class ProfileFragment extends Fragment {
     private void ReadCurrentUser(){
         UserDbHelper helper = new UserDbHelper(this.getContext());
         SQLiteDatabase db = helper.getReadableDatabase();
-        String projections[] = {"username", "email", "phone", "address"};
+        String projections[] = {"username", "email", "fname", "lname", "token"};
         Cursor c = db.query("user", projections, null, null, null,null, null);
         if (c == null){
             currentUser = null;
@@ -119,8 +117,6 @@ public class ProfileFragment extends Fragment {
             currentUser = new User();
             currentUser.setUsername(c.getString(0));
             currentUser.setEmail(c.getString(1));
-            currentUser.setPhone(c.getString(2));
-            currentUser.setAddress(c.getString(3));
         }else{
             currentUser = null;
         }

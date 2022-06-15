@@ -95,8 +95,6 @@ public class EditProfileFragment extends Fragment {
         if(user !=null){
             username.setText(user.getUsername());
             email.setText(user.getEmail());
-            phone.setText(user.getPhone());
-            address.setText(user.getAddress());
         }
         return view;
     }

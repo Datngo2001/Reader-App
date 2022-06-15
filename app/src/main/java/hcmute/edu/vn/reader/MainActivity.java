@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements Goto{
                 return true;
             }
         });
+
+        // load current user form sqlite,
+        MySingleton.getInstance(this.getApplicationContext()).getCurrentToken();
+
     }
 
     private void gotoFragment(Fragment fragment){
