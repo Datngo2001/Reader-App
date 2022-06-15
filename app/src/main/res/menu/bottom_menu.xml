@@ -4,5 +4,6 @@
 
     <item android:id="@+id/homeItem" android:title="Home" android:icon="@drawable/ic_baseline_home_24" />
     <item android:id="@+id/profileItem" android:title="Profile" android:icon="@drawable/ic_baseline_person_24"/>
-    <item android:id="@+id/settingItem" android:title="Settings" android:icon="@drawable/ic_baseline_settings_24"/>
+    <item android:id="@+id/borrowRegister" android:title="Register" android:icon="@drawable/ic_baseline_drafts_24"/>
+    <item android:id="@+id/borrowBill" android:title="Bill" android:icon="@drawable/ic_baseline_library_books_24"/>
 </menu>

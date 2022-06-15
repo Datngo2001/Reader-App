@@ -10,12 +10,15 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import hcmute.edu.vn.reader.fragment.BillFragment;
 import hcmute.edu.vn.reader.fragment.BookingFragment;
 import hcmute.edu.vn.reader.fragment.EditProfileFragment;
 import hcmute.edu.vn.reader.fragment.HomeFragment;
-import hcmute.edu.vn.reader.fragment.MenuFragment;
+import hcmute.edu.vn.reader.fragment.LoginFragment;
+import hcmute.edu.vn.reader.fragment.BookFragment;
 import hcmute.edu.vn.reader.fragment.ProfileFragment;
-import hcmute.edu.vn.reader.fragment.SettingsFragment;
+import hcmute.edu.vn.reader.fragment.RegisterFragment;
+import hcmute.edu.vn.reader.fragment.SigninFragment;
 import hcmute.edu.vn.reader.model.Dish;
 import hcmute.edu.vn.reader.model.Store;
 import hcmute.edu.vn.reader.model.User;
@@ -40,8 +43,10 @@ public class MainActivity extends AppCompatActivity implements Goto{
                     fragment = new HomeFragment();
                 }else if(id == R.id.profileItem){
                     fragment = new ProfileFragment();
-                }else if(id == R.id.settingItem){
-                    fragment = new SettingsFragment();
+                }else if(id == R.id.borrowRegister){
+                    fragment = new RegisterFragment();
+                }else if(id == R.id.borrowBill){
+                    fragment = new BillFragment();
                 }
                 gotoFragment(fragment);
                 return true;
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements Goto{
     }
 
     public void GotoMenu(Store store) {
-        MenuFragment menuFragment = new MenuFragment();
+        BookFragment menuFragment = new BookFragment();
         menuFragment.setStore(store);
         gotoFragment(menuFragment);
     }
@@ -81,5 +86,17 @@ public class MainActivity extends AppCompatActivity implements Goto{
     public void GotoProfile() {
         ProfileFragment profileFragment = new ProfileFragment();
         gotoFragment(profileFragment);
+    }
+
+    @Override
+    public void GotoLogin() {
+        LoginFragment loginFragment = new LoginFragment();
+        gotoFragment(loginFragment);
+    }
+
+    @Override
+    public void GotoSignin() {
+        SigninFragment signinFragment = new SigninFragment();
+        gotoFragment(signinFragment);
     }
 }

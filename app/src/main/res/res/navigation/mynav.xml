@@ -21,12 +21,12 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="hcmute.edu.vn.reader.fragment.SettingsFragment"
+        android:name="hcmute.edu.vn.reader.fragment.RegisterFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/menuFragment"
-        android:name="hcmute.edu.vn.reader.fragment.MenuFragment"
+        android:name="hcmute.edu.vn.reader.fragment.BookFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action

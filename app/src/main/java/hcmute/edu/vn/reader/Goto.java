@@ -9,4 +9,6 @@ public interface Goto {
     public void GotoBooking(Dish dish);
     public void GotoEditProfile(User user);
     public void GotoProfile();
+    public void GotoLogin();
+    public void GotoSignin();
 }

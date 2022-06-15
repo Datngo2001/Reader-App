@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import hcmute.edu.vn.reader.Goto;
+import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.R;
 import hcmute.edu.vn.reader.data.UserDbHelper;
 import hcmute.edu.vn.reader.model.User;
@@ -25,11 +27,12 @@ import hcmute.edu.vn.reader.model.User;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-    private User currentUser;
+    User currentUser = MySingleton.getInstance(this.getContext()).getCurrentUser();
 
     Goto _goto;
     FloatingActionButton editButton;
-    TextView username, email, phone, address;
+    TextView username, email, fname, lname;
+    ConstraintLayout btnGroup, infoGroup;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,15 +90,23 @@ public class ProfileFragment extends Fragment {
         });
         username = (TextView) view.findViewById(R.id.profileUsername);
         email = (TextView) view.findViewById(R.id.profileEmail);
-        phone = (TextView) view.findViewById(R.id.profilePhone);
-        address = (TextView) view.findViewById(R.id.profileAddress);
+        fname = (TextView) view.findViewById(R.id.profileFname);
+        lname = (TextView) view.findViewById(R.id.profileLname);
+        btnGroup = (ConstraintLayout) view.findViewById(R.id.profileBtnGroup);
+        infoGroup = (ConstraintLayout) view.findViewById(R.id.profileInfoGroup);
 
-        ReadCurrentUser();
         if(currentUser == null){
+            btnGroup.setVisibility(View.VISIBLE);
+            infoGroup.setVisibility(View.INVISIBLE);
             return view;
         }
+
+        btnGroup.setVisibility(View.VISIBLE);
+        infoGroup.setVisibility(View.INVISIBLE);
         username.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
+        fname = (TextView) view.findViewById(R.id.profileFname);
+        lname = (TextView) view.findViewById(R.id.profileLname);
 
         return view;
     }
@@ -104,22 +115,4 @@ public class ProfileFragment extends Fragment {
         _goto.GotoEditProfile(currentUser);
     }
 
-    private void ReadCurrentUser(){
-        UserDbHelper helper = new UserDbHelper(this.getContext());
-        SQLiteDatabase db = helper.getReadableDatabase();
-        String projections[] = {"username", "email", "fname", "lname", "token"};
-        Cursor c = db.query("user", projections, null, null, null,null, null);
-        if (c == null){
-            currentUser = null;
-            return;
-        }else if(c.getCount() > 0){
-            c.moveToPosition(0);
-            currentUser = new User();
-            currentUser.setUsername(c.getString(0));
-            currentUser.setEmail(c.getString(1));
-        }else{
-            currentUser = null;
-        }
-        c.close();
-    }
 }

@@ -9,51 +9,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/profileInfoGroup">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/avatar"
-            app:layout_constraintBottom_toTopOf="@+id/circularRevealCardView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
-
-        <TextView
-            android:id="@+id/profileUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Username"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/circularRevealCardView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-            android:id="@+id/circularRevealCardView"
-            android:layout_width="370dp"
-            android:layout_height="350dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.93"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/black">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/profileUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.023" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,51 +51,49 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone:"
+                    android:text="First Name:"
                     android:textSize="20dp"
-                    app:layout_constraintBottom_toTopOf="@+id/profilePhone"
+                    app:layout_constraintBottom_toTopOf="@+id/profileFname"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.045"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/profilePhone"
-                    android:layout_width="340dp"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="25dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.466"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.452" />
+        <TextView
+            android:id="@+id/profileFname"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.302" />
 
-                <TextView
+        <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adress:"
+                    android:text="Last Name:"
                     android:textSize="20dp"
-                    app:layout_constraintBottom_toTopOf="@+id/profileAddress"
+                    app:layout_constraintBottom_toTopOf="@+id/profileLname"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.045"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/profileAddress"
-                    android:layout_width="340dp"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="25dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.466"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.689" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+        <TextView
+            android:id="@+id/profileLname"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.447" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/editButton"
@@ -141,5 +110,29 @@
             app:rippleColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/profileBtnGroup">
 
+        <Button
+            android:id="@+id/gotoLoginBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Button>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/gotoSigninBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/gotoLoginBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Signin"
+            android:textSize="25dp"></androidx.appcompat.widget.AppCompatButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -23,10 +23,10 @@ import hcmute.edu.vn.reader.model.Store;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MenuFragment#newInstance} factory method to
+ * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class BookFragment extends Fragment {
     private Store store;
 
     Button toBookingBtn;
@@ -48,7 +48,7 @@ public class MenuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MenuFragment() {
+    public BookFragment() {
         // Required empty public constructor
     }
 
@@ -65,8 +65,8 @@ public class MenuFragment extends Fragment {
      * @return A new instance of fragment MenuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MenuFragment newInstance(String param1, String param2) {
-        MenuFragment fragment = new MenuFragment();
+    public static BookFragment newInstance(String param1, String param2) {
+        BookFragment fragment = new BookFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -89,7 +89,7 @@ public class MenuFragment extends Fragment {
         _goto = (Goto) getActivity();
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_book, container, false);
 
         storeName = (TextView) view.findViewById(R.id.storeNameMenu);
         storeName.setText(store.getName());
