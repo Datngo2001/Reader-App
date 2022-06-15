@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class ProfileFragment extends Fragment {
     FloatingActionButton editButton;
     TextView username, email, fname, lname;
     ConstraintLayout btnGroup, infoGroup;
+    Button toLoginBtn, toSigninBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +90,20 @@ public class ProfileFragment extends Fragment {
                 openEditForm();
             }
         });
+        toLoginBtn = view.findViewById(R.id.gotoLoginBtn);
+        toLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _goto.GotoLogin();
+            }
+        });
+        toSigninBtn = view.findViewById(R.id.gotoSigninBtn);
+        toSigninBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _goto.GotoSignin();
+            }
+        });
         username = (TextView) view.findViewById(R.id.profileUsername);
         email = (TextView) view.findViewById(R.id.profileEmail);
         fname = (TextView) view.findViewById(R.id.profileFname);
@@ -114,5 +130,4 @@ public class ProfileFragment extends Fragment {
     private void openEditForm(){
         _goto.GotoEditProfile(currentUser);
     }
-
 }

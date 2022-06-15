@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import hcmute.edu.vn.reader.fragment.BillFragment;
 import hcmute.edu.vn.reader.fragment.BookingFragment;
+import hcmute.edu.vn.reader.fragment.CartFragment;
 import hcmute.edu.vn.reader.fragment.EditProfileFragment;
 import hcmute.edu.vn.reader.fragment.HomeFragment;
 import hcmute.edu.vn.reader.fragment.LoginFragment;
@@ -43,10 +44,12 @@ public class MainActivity extends AppCompatActivity implements Goto{
                     fragment = new HomeFragment();
                 }else if(id == R.id.profileItem){
                     fragment = new ProfileFragment();
-                }else if(id == R.id.borrowRegister){
+                }else if(id == R.id.borrowRegisterItem){
                     fragment = new RegisterFragment();
-                }else if(id == R.id.borrowBill){
+                }else if(id == R.id.borrowBillItem){
                     fragment = new BillFragment();
+                }else if(id == R.id.cartItem){
+                    fragment = new CartFragment();
                 }
                 gotoFragment(fragment);
                 return true;
