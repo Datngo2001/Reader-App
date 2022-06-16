@@ -1,15 +1,15 @@
 package hcmute.edu.vn.reader.model;
 
 public class BaseResponse<T> {
-    private T datal;
+    private T data;
     private String message;
 
-    public T getDatal() {
-        return datal;
+    public T getData() {
+        return data;
     }
 
-    public void setDatal(T datal) {
-        this.datal = datal;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public String getMessage() {

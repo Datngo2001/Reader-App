@@ -13,14 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.api.ApiService;
 import hcmute.edu.vn.reader.data.UserDbHelper;
+import hcmute.edu.vn.reader.model.BaseResponse;
 import hcmute.edu.vn.reader.model.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +40,7 @@ public class ProfileFragment extends Fragment {
     FloatingActionButton editButton;
     TextView username, email, fname, lname;
     ConstraintLayout btnGroup, infoGroup;
-    Button toLoginBtn, toSigninBtn;
+    Button toLoginBtn, toSigninBtn, logoutBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,6 +110,13 @@ public class ProfileFragment extends Fragment {
                 _goto.GotoSignin();
             }
         });
+        logoutBtn = (Button) view.findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
         username = (TextView) view.findViewById(R.id.profileUsername);
         email = (TextView) view.findViewById(R.id.profileEmail);
         fname = (TextView) view.findViewById(R.id.profileFname);
@@ -117,17 +130,32 @@ public class ProfileFragment extends Fragment {
             return view;
         }
 
-        btnGroup.setVisibility(View.VISIBLE);
-        infoGroup.setVisibility(View.INVISIBLE);
+        btnGroup.setVisibility(View.INVISIBLE);
+        infoGroup.setVisibility(View.VISIBLE);
         username.setText(currentUser.getUsername());
         email.setText(currentUser.getEmail());
-        fname = (TextView) view.findViewById(R.id.profileFname);
-        lname = (TextView) view.findViewById(R.id.profileLname);
+        fname.setText(currentUser.getFname());
+        lname.setText(currentUser.getLname());
 
         return view;
     }
 
     private void openEditForm(){
         _goto.GotoEditProfile(currentUser);
+    }
+
+    private void logout(){
+        ApiService.apiService.logout().enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                MySingleton.getInstance(getContext()).logoutUser();
+                _goto.GotoHome();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

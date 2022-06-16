@@ -57,12 +57,17 @@ public class MainActivity extends AppCompatActivity implements Goto{
         });
 
         // load current user form sqlite,
-        MySingleton.getInstance(this.getApplicationContext()).getCurrentToken();
-
+        MySingleton.getInstance(this.getApplicationContext()).getCurrentUser();
     }
 
     private void gotoFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer, fragment).commit();
+    }
+
+    @Override
+    public void GotoHome() {
+        HomeFragment homeFragment = new HomeFragment();
+        gotoFragment(homeFragment);
     }
 
     public void GotoMenu(Store store) {

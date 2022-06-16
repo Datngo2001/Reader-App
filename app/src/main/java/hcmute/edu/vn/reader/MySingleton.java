@@ -72,7 +72,7 @@ public class MySingleton {
                 currentUser.setEmail(c.getString(1));
                 currentUser.setFname(c.getString(2));
                 currentUser.setLname(c.getString(3));
-                currentToken = c.getString(4);
+                currentToken = "Bearer " + c.getString(4);
             }else{
                 currentUser = null;
             }
@@ -91,7 +91,7 @@ public class MySingleton {
                 currentToken = null;
             }else if(c.getCount() > 0){
                 c.moveToPosition(0);
-                currentToken = c.getString(0);
+                currentToken = "Bearer " + c.getString(0);
             }else{
                 currentToken = null;
             }
@@ -101,6 +101,9 @@ public class MySingleton {
     }
 
     public void setCurrentUserAndToken(User user, String token) {
+        if(!token.startsWith("Bearer ")){
+            token = "Bearer " + token;
+        }
         UserDbHelper helper = new UserDbHelper(ctx);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -119,5 +122,16 @@ public class MySingleton {
 
         this.currentUser = user;
         this.currentToken = token;
+    }
+
+    public void logoutUser(){
+        UserDbHelper helper = new UserDbHelper(ctx);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String whereClause = "username = '" + this.currentUser.getUsername() + "'";
+        db.delete("user", whereClause,null);
+
+        this.currentUser = null;
+        this.currentToken = null;
     }
 }

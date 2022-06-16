@@ -27,7 +27,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     Gson gson = new GsonBuilder()
-            .setDateFormat(DateFormat.HOUR_OF_DAY0_FIELD)
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
 
     ApiService apiService = new Retrofit.Builder()

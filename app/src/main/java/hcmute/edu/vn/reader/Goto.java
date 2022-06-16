@@ -5,6 +5,7 @@ import hcmute.edu.vn.reader.model.Store;
 import hcmute.edu.vn.reader.model.User;
 
 public interface Goto {
+    public void GotoHome();
     public void GotoMenu(Store store);
     public void GotoBooking(Dish dish);
     public void GotoEditProfile(User user);

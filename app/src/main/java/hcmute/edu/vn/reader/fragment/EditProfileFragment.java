@@ -8,14 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import hcmute.edu.vn.reader.Goto;
+import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.api.ApiService;
 import hcmute.edu.vn.reader.data.UserDbHelper;
+import hcmute.edu.vn.reader.dtos.UpdateProfileDto;
 import hcmute.edu.vn.reader.fragment.ProfileFragment;
+import hcmute.edu.vn.reader.model.BaseResponse;
 import hcmute.edu.vn.reader.model.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditProfileFragment extends Fragment {
     private User user;
@@ -26,7 +34,7 @@ public class EditProfileFragment extends Fragment {
 
     Goto _goto;
     Button saveBtn, cancelBtn;
-    EditText username, email, phone, address;
+    EditText email, fname, lname, password, repeat, newPass;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,39 +93,56 @@ public class EditProfileFragment extends Fragment {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                returnToProfile();
+                _goto.GotoProfile();
             }
         });
-        username = (EditText) view.findViewById(R.id.editUsername);
         email = (EditText) view.findViewById(R.id.editUserEmail);
-        phone = (EditText) view.findViewById(R.id.editUserPhone);
-        address = (EditText) view.findViewById(R.id.editUserAddress);
+        fname = (EditText) view.findViewById(R.id.editUserFname);
+        lname = (EditText) view.findViewById(R.id.editUserLname);
+        password = (EditText) view.findViewById(R.id.editPassword);
+        repeat = (EditText) view.findViewById(R.id.editRepeat);
+        newPass = (EditText) view.findViewById(R.id.editNewPassWord);
         if(user !=null){
-            username.setText(user.getUsername());
             email.setText(user.getEmail());
+            fname.setText(user.getFname());
+            lname.setText(user.getLname());
         }
         return view;
     }
 
     private void saveData(){
-        UserDbHelper helper = new UserDbHelper(this.getContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("username", username.getText().toString());
-        values.put("email", email.getText().toString());
-        values.put("phone", phone.getText().toString());
-        values.put("address", address.getText().toString());
-
-        if(user == null){
-            db.insert("user", null, values);
-        }else{
-            String whereClause = "username = '" + user.getUsername() + "'";
-            db.update("user", values, whereClause,null);
+        String newpass = newPass.getText().toString();
+        String rep = repeat.getText().toString();
+        if(!newpass.equals("") && newpass.equals(rep)){
+            Toast.makeText(getContext(), "Password not match", Toast.LENGTH_SHORT).show();
+            return;
         }
-        returnToProfile();
-    }
 
-    private  void  returnToProfile(){
-        _goto.GotoProfile();
+        UpdateProfileDto data = new UpdateProfileDto();
+        data.email = email.getText().toString();
+        data.password = password.getText().toString();
+        data.newPassword = newpass;
+        data.fname = fname.getText().toString();
+        data.lname = lname.getText().toString();
+
+        String token = MySingleton.getInstance().getCurrentToken();
+        ApiService.apiService.updateProfile(token, data).enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                if(response.body() == null){
+                    Toast.makeText(getActivity().getApplicationContext(), "Error update profile", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                User user = response.body().getData();
+                MySingleton.getInstance(getContext()).setCurrentUserAndToken(user, token);
+                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                _goto.GotoProfile();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
