@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
 import hcmute.edu.vn.reader.fragment.BillFragment;
 import hcmute.edu.vn.reader.fragment.BookingFragment;
 import hcmute.edu.vn.reader.fragment.CartFragment;
@@ -78,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements Goto{
     }
 
     @Override
-    public void GotoBooking(Dish dish) {
+    public void GotoBooking(List<BookTitle> bookTitles) {
         BookingFragment bookingFragment = new BookingFragment();
-        bookingFragment.setDish(dish);
+        bookingFragment.setBookTitles(bookTitles);
         gotoFragment(bookingFragment);
     }
 

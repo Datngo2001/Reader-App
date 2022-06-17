@@ -12,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.R;
 import hcmute.edu.vn.reader.data.UserDbHelper;
 import hcmute.edu.vn.reader.list_adapter.CartItemAdapter;
@@ -31,7 +35,9 @@ import hcmute.edu.vn.reader.model.BookTitle;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment {
+    Goto _goto;
 
+    FloatingActionButton registerBooks;
     ListView booksList;
     CartItemAdapter cartItemAdapter;
     ArrayList<BookTitle> bookTitles;
@@ -79,10 +85,19 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        loadCartItem();
+        _goto = (Goto) getActivity();
+
         View view =  inflater.inflate(R.layout.fragment_cart, container, false);
 
-        booksList = view.findViewById(R.id.cart_list);
-        loadCartItem();
+        registerBooks = (FloatingActionButton) view.findViewById(R.id.bookRegister);
+        registerBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _goto.GotoBooking(bookTitles);
+            }
+        });
+        booksList = (ListView) view.findViewById(R.id.cart_list);
         cartItemAdapter = new CartItemAdapter(getActivity(), R.layout.cart_item, bookTitles);
         booksList.setAdapter(cartItemAdapter);
 

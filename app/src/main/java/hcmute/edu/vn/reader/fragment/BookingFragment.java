@@ -1,5 +1,6 @@
 package hcmute.edu.vn.reader.fragment;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,11 +8,30 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import hcmute.edu.vn.reader.Goto;
+import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.api.ApiService;
+import hcmute.edu.vn.reader.data.UserDbHelper;
+import hcmute.edu.vn.reader.dtos.CreateBooksRegisterDto;
+import hcmute.edu.vn.reader.model.BaseResponse;
+import hcmute.edu.vn.reader.model.BookTitle;
+import hcmute.edu.vn.reader.model.BorrowRegister;
 import hcmute.edu.vn.reader.model.Dish;
+import hcmute.edu.vn.reader.util.ConvertDate;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,14 +39,16 @@ import hcmute.edu.vn.reader.model.Dish;
  * create an instance of this fragment.
  */
 public class BookingFragment extends Fragment {
-    private Dish dish;
-    ImageView dishImage;
-    TextView dishName;
-    TextView dishDescription;
-    TextView dishPrice;
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    Goto _goto;
+    List<BookTitle> bookTitles;
+
+    Button registerBtn;
+    CalendarView calendarView;
+    EditText noteTxt;
+
+    public void setBookTitles(List<BookTitle> books) {
+        this.bookTitles = books;
     }
 
     // TODO: Rename parameter arguments, choose names that match
@@ -72,19 +94,54 @@ public class BookingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        _goto = (Goto)getActivity();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
 
-        dishImage = (ImageView) view.findViewById(R.id.dishImageBooking);
-        dishName = (TextView) view.findViewById(R.id.dishNameBooking);
-        dishDescription = (TextView) view.findViewById(R.id.dishDescriptionBooking);
-        dishPrice = (TextView) view.findViewById(R.id.totalPrice);
+        calendarView = (CalendarView) view.findViewById(R.id.register_returnDate);
+        registerBtn = (Button) view.findViewById(R.id.register_btn);
+        noteTxt = (EditText) view.findViewById(R.id.register_note);
 
-        dishImage.setImageResource(dish.getImage());
-        dishName.setText(dish.getName());
-        dishDescription.setText(dish.getDescription());
-        dishPrice.setText(Long.toString(dish.getPrice()));
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerBooks();
+            }
+        });
 
         return view;
+    }
+
+    private void registerBooks(){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        for (BookTitle book:bookTitles) {
+            ids.add(book.getId());
+        }
+        Date returnDate = new Date(calendarView.getDate());
+
+        CreateBooksRegisterDto data = new CreateBooksRegisterDto();
+        data.bookIds = ids;
+        data.note = noteTxt.getText().toString();
+        data.planReturnDate = ConvertDate.toISO8601UTC(returnDate);
+
+        ApiService.apiService.registerBooks(MySingleton.getInstance().getCurrentToken(), data).enqueue(new Callback<BaseResponse<BorrowRegister>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<BorrowRegister>> call, Response<BaseResponse<BorrowRegister>> response) {
+                ClearCart();
+                _goto.GotoHome();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<BorrowRegister>> call, Throwable t) {
+
+            }
+        });
+    }
+    private  void ClearCart(){
+        UserDbHelper helper = new UserDbHelper(getContext());
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String whereClause = "True";
+        db.delete("cart", whereClause,null);
     }
 }
