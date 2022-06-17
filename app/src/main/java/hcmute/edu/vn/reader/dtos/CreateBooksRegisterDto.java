@@ -5,5 +5,5 @@ import java.util.List;
 public class CreateBooksRegisterDto {
     public String note;
     public String planReturnDate;
-    public List<Integer> bookIds;
+    public List<Integer> bookTitileIds;
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,13 +118,17 @@ public class BookingFragment extends Fragment {
         Date returnDate = new Date(calendarView.getDate());
 
         CreateBooksRegisterDto data = new CreateBooksRegisterDto();
-        data.bookIds = ids;
+        data.bookTitileIds = ids;
         data.note = noteTxt.getText().toString();
-        data.planReturnDate = ConvertDate.toISO8601UTC(returnDate);
+        data.planReturnDate = returnDate.toString();
 
         ApiService.apiService.registerBooks(MySingleton.getInstance().getCurrentToken(), data).enqueue(new Callback<BaseResponse<BorrowRegister>>() {
             @Override
             public void onResponse(Call<BaseResponse<BorrowRegister>> call, Response<BaseResponse<BorrowRegister>> response) {
+                if(response.body() == null){
+                    Toast.makeText(getContext(), "Your book is out of stock", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ClearCart();
                 _goto.GotoHome();
             }

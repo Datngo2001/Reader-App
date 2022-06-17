@@ -7,8 +7,17 @@ public class BorrowBill {
     private String note;
     private boolean isReturned;
     private String planReturnDate;
+    private String returnDate;
     private String borrowDate;
     private List<Book> books;
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
 
     public int getId() {
         return id;
