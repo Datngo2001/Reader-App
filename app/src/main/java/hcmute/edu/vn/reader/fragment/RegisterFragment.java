@@ -7,8 +7,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.api.ApiService;
+import hcmute.edu.vn.reader.dtos.LoginDto;
+import hcmute.edu.vn.reader.model.BaseResponse;
+import hcmute.edu.vn.reader.model.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,10 @@ import hcmute.edu.vn.reader.R;
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
+
+    Goto _goto;
+    Button signinBtn;
+    EditText usernameTxt, passwordTxt, confirmTxt;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +75,46 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View view =  inflater.inflate(R.layout.fragment_register, container, false);
+
+        signinBtn = view.findViewById(R.id.siginBtn);
+        usernameTxt = view.findViewById(R.id.signin_username);
+        passwordTxt = view.findViewById(R.id.signin_password);
+        confirmTxt = view.findViewById(R.id.signin_repeat);
+
+        signinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signin();
+            }
+        });
+
+        return view;
+    }
+
+    private void signin() {
+        String password = passwordTxt.getText().toString();
+        String confirm = confirmTxt.getText().toString();
+        if(!password.equals(confirm)){
+            Toast.makeText(getContext(), "Password not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        LoginDto data = new LoginDto(usernameTxt.getText().toString(), password);
+        ApiService.apiService.signup(data).enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                if(response.body() == null){
+                    Toast.makeText(getContext(), "Register error", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                _goto.GotoProfile();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
