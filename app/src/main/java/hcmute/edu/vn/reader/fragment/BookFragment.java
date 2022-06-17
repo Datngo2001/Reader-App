@@ -1,5 +1,8 @@
 package hcmute.edu.vn.reader.fragment;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,10 +22,12 @@ import java.util.ArrayList;
 
 import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.data.UserDbHelper;
 import hcmute.edu.vn.reader.list_adapter.DishAdapter;
 import hcmute.edu.vn.reader.model.BookTitle;
 import hcmute.edu.vn.reader.model.Dish;
 import hcmute.edu.vn.reader.model.Store;
+import hcmute.edu.vn.reader.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,6 +107,55 @@ public class BookFragment extends Fragment {
         bookImage = (ImageView) view.findViewById(R.id.bookImage);
         Glide.with(getActivity()).load(bookTitle.getImage()).centerInside().into(bookImage);
 
+        addToCart = (Button) view.findViewById(R.id.addToCartBtn);
+        if(isInCart()){
+            addToCart.setVisibility(View.INVISIBLE);
+        }else{
+            addToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addBookToCart();
+                }
+            });
+        }
+
         return view;
+    }
+
+    private void addBookToCart(){
+        UserDbHelper helper = new UserDbHelper(getContext());
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id", bookTitle.getId());
+        values.put("title", bookTitle.getTitle());
+        values.put("author", bookTitle.getAuthor());
+        values.put("image", bookTitle.getImage());
+        values.put("description", bookTitle.getDescription());
+
+        db.insert("cart", null, values);
+
+        addToCart.setVisibility(View.INVISIBLE);
+    }
+
+    private boolean isInCart(){
+        UserDbHelper helper = new UserDbHelper(getContext());
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String projections[] = {"id"};
+        Cursor c = db.query("cart", projections, null, null, null,null, null);
+
+        boolean result =false;
+
+        if(c.getCount() > 0) {
+            while (!c.isLast()) {
+                c.moveToNext();
+                if (c.getFloat(0) == bookTitle.getId()) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        c.close();
+        return result;
     }
 }
