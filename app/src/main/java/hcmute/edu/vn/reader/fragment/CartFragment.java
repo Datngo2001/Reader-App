@@ -1,14 +1,29 @@
 package hcmute.edu.vn.reader.fragment;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.data.UserDbHelper;
+import hcmute.edu.vn.reader.list_adapter.CartItemAdapter;
+import hcmute.edu.vn.reader.model.BookTitle;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +31,10 @@ import hcmute.edu.vn.reader.R;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment {
+
+    ListView booksList;
+    CartItemAdapter cartItemAdapter;
+    ArrayList<BookTitle> bookTitles;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +79,37 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+
+        booksList = view.findViewById(R.id.cart_list);
+        loadCartItem();
+        cartItemAdapter = new CartItemAdapter(getActivity(), R.layout.cart_item, bookTitles);
+        booksList.setAdapter(cartItemAdapter);
+
+        return view;
+    }
+
+    private void loadCartItem(){
+        bookTitles = new ArrayList<BookTitle>();
+
+        UserDbHelper helper = new UserDbHelper(getContext());
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String projections[] = {"id", "title", "author", "image", "description"};
+        Cursor c = db.query("cart", projections, null, null, null,null, null);
+
+        if(c.getCount() > 0) {
+            while (!c.isLast()) {
+                c.moveToNext();
+                BookTitle bookTitle = new BookTitle();
+                bookTitle.setId(c.getInt(0));
+                bookTitle.setTitle(c.getString(1));
+                bookTitle.setAuthor(c.getString(2));
+                bookTitle.setImage(c.getString(3));
+                bookTitle.setDescription(c.getString(4));
+                bookTitles.add(bookTitle);
+            }
+        }
+
+        c.close();
     }
 }

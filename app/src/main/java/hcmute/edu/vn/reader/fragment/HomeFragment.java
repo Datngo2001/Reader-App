@@ -72,8 +72,7 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-        bookList = (ListView) view.findViewById(R.id.bookListView);
+        bookList = (ListView) view.findViewById(R.id.home_bookListView);
         searchBooks = (SearchView) view.findViewById(R.id.searchBooks);
         searchBooks.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
