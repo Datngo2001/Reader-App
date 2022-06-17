@@ -78,7 +78,7 @@ public class CartItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 deleteCartItem(i);
-                holder.cartItem.removeAllViews();
+                holder.cartItem.setVisibility(View.INVISIBLE);
             }
         });
 

@@ -73,7 +73,6 @@ public class BooksAdapter extends BaseAdapter {
         holder.txtTitle.setText(bookTitle.getTitle());
         holder.txtAuthor.setText(bookTitle.getAuthor());
 
-
         Glide.with(context)
                 .load(bookTitle.getImage())
                 .centerInside()

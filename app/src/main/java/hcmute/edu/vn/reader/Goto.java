@@ -3,8 +3,6 @@ package hcmute.edu.vn.reader;
 import java.util.List;
 
 import hcmute.edu.vn.reader.model.BookTitle;
-import hcmute.edu.vn.reader.model.Dish;
-import hcmute.edu.vn.reader.model.Store;
 import hcmute.edu.vn.reader.model.User;
 
 public interface Goto {

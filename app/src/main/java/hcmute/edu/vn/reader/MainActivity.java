@@ -23,8 +23,6 @@ import hcmute.edu.vn.reader.fragment.ProfileFragment;
 import hcmute.edu.vn.reader.fragment.RegisterFragment;
 import hcmute.edu.vn.reader.fragment.SigninFragment;
 import hcmute.edu.vn.reader.model.BookTitle;
-import hcmute.edu.vn.reader.model.Dish;
-import hcmute.edu.vn.reader.model.Store;
 import hcmute.edu.vn.reader.model.User;
 
 public class MainActivity extends AppCompatActivity implements Goto{

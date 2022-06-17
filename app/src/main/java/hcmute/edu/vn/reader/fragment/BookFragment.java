@@ -10,24 +10,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.R;
 import hcmute.edu.vn.reader.data.UserDbHelper;
-import hcmute.edu.vn.reader.list_adapter.DishAdapter;
 import hcmute.edu.vn.reader.model.BookTitle;
-import hcmute.edu.vn.reader.model.Dish;
-import hcmute.edu.vn.reader.model.Store;
-import hcmute.edu.vn.reader.model.User;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +25,6 @@ import hcmute.edu.vn.reader.dtos.CreateBooksRegisterDto;
 import hcmute.edu.vn.reader.model.BaseResponse;
 import hcmute.edu.vn.reader.model.BookTitle;
 import hcmute.edu.vn.reader.model.BorrowRegister;
-import hcmute.edu.vn.reader.model.Dish;
 import hcmute.edu.vn.reader.util.ConvertDate;
 import retrofit2.Call;
 import retrofit2.Callback;
