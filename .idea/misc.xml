@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.1305" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/bill_item.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/book_item.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/cart_item.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/dish_item.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_bill.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_book.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_booking.xml" value="0.22" />
+        <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_borrow_register.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_cart.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_editprofile.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_home.xml" value="0.2" />
@@ -18,6 +20,7 @@
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/fragment_signin.xml" value="0.2" />
+        <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/register_item.xml" value="0.1" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/layout/store_item.xml" value="0.1" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/menu/bottom_menu.xml" value="0.2" />
         <entry key="..\:/Users/ngomi/AndroidStudioProjects/Reader/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2075" />

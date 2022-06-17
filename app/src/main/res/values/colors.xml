@@ -11,4 +11,5 @@
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorSecondary">#2196F3</color>
     <color name="colorDelete">#F80C0C</color>
+    <color name="colorConfirm">#0CF824</color>
 </resources>

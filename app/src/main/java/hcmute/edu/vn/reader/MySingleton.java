@@ -72,7 +72,12 @@ public class MySingleton {
                 currentUser.setEmail(c.getString(1));
                 currentUser.setFname(c.getString(2));
                 currentUser.setLname(c.getString(3));
-                currentToken = "Bearer " + c.getString(4);
+                if(!c.getString(4).startsWith("Bearer ")){
+                    currentToken = "Bearer " + c.getString(4);
+                }else{
+                    currentToken = c.getString(4);
+                }
+
             }else{
                 currentUser = null;
             }
@@ -91,7 +96,11 @@ public class MySingleton {
                 currentToken = null;
             }else if(c.getCount() > 0){
                 c.moveToPosition(0);
-                currentToken = "Bearer " + c.getString(0);
+                if(!c.getString(0).startsWith("Bearer ")){
+                    currentToken = "Bearer " + c.getString(0);
+                }else{
+                    currentToken = c.getString(0);
+                }
             }else{
                 currentToken = null;
             }

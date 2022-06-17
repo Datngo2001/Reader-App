@@ -14,6 +14,7 @@ import java.util.List;
 
 import hcmute.edu.vn.reader.fragment.BillFragment;
 import hcmute.edu.vn.reader.fragment.BookingFragment;
+import hcmute.edu.vn.reader.fragment.BorrowRegisterFragment;
 import hcmute.edu.vn.reader.fragment.CartFragment;
 import hcmute.edu.vn.reader.fragment.EditProfileFragment;
 import hcmute.edu.vn.reader.fragment.HomeFragment;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Goto{
                 }else if(id == R.id.profileItem){
                     fragment = new ProfileFragment();
                 }else if(id == R.id.borrowRegisterItem){
-                    fragment = new RegisterFragment();
+                    fragment = new BorrowRegisterFragment();
                 }else if(id == R.id.borrowBillItem){
                     fragment = new BillFragment();
                 }else if(id == R.id.cartItem){

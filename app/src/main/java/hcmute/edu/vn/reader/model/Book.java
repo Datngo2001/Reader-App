@@ -5,7 +5,7 @@ public class Book {
     private boolean isGood;
     private String createdAt;
     private int bookTitleId;
-    private BookTitle bookTitle;
+    private BookTitle BookTitle;
 
     public int getId() {
         return id;
@@ -40,10 +40,10 @@ public class Book {
     }
 
     public BookTitle getBookTitle() {
-        return bookTitle;
+        return this.BookTitle;
     }
 
     public void setBookTitle(BookTitle bookTitle) {
-        this.bookTitle = bookTitle;
+        this.BookTitle = bookTitle;
     }
 }

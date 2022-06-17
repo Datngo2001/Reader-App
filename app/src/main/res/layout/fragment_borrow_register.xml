@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.BillFragment">
+    tools:context=".fragment.BorrowRegisterFragment">
 
     <ListView
-        android:id="@+id/bill_list"
+        android:id="@+id/register_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
