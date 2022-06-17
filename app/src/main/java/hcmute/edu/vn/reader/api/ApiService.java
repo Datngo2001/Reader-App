@@ -5,6 +5,8 @@ import android.icu.text.DateFormat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.dtos.CreateBooksRegisterDto;
 import hcmute.edu.vn.reader.dtos.LoginDto;
@@ -64,7 +66,7 @@ public interface ApiService {
     Call<BaseResponse<User>> updateProfile(@Header("Authorization") String token,@Body UpdateProfileDto data);
 
     @GET("booktitle/search")
-    Call<BaseResponse<BookTitle>> searchBookTitle(@Header("Authorization") String token, @Query("title") String title, @Query("page") int page, @Query("limit") int limit);
+    Call<BaseResponse<List<BookTitle>>> searchBookTitle(@Header("Authorization") String token, @Query("title") String title, @Query("page") int page, @Query("limit") int limit);
 
     @GET("booktitle/{id}")
     Call<BaseResponse<BookTitle>> getBookTitleById(@Header("Authorization") String token, @Path("id") int id);

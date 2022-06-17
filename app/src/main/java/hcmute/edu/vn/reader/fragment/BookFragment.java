@@ -13,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import hcmute.edu.vn.reader.Goto;
 import hcmute.edu.vn.reader.R;
 import hcmute.edu.vn.reader.list_adapter.DishAdapter;
+import hcmute.edu.vn.reader.model.BookTitle;
 import hcmute.edu.vn.reader.model.Dish;
 import hcmute.edu.vn.reader.model.Store;
 
@@ -27,16 +30,12 @@ import hcmute.edu.vn.reader.model.Store;
  * create an instance of this fragment.
  */
 public class BookFragment extends Fragment {
-    private Store store;
+    private BookTitle bookTitle;
 
-    Button toBookingBtn;
-    TextView storeName;
-    ImageView storeImage;
-    ImageView storeCoverImage;
-    ListView dishListView;
+    Button addToCart;
+    TextView bookTitleTxt, bookAuthorTxt, bookDesTxt;
+    ImageView bookImage;
 
-    ArrayList<Dish> arrayDish;
-    DishAdapter adapter;
     Goto _goto;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -52,8 +51,8 @@ public class BookFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setBookTitle(BookTitle bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     /**
@@ -91,35 +90,18 @@ public class BookFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_book, container, false);
 
-        storeName = (TextView) view.findViewById(R.id.storeNameMenu);
-        storeName.setText(store.getName());
+        bookTitleTxt = (TextView) view.findViewById(R.id.bookTitle);
+        bookTitleTxt.setText(bookTitle.getTitle());
 
-        storeImage = (ImageView) view.findViewById(R.id.menuStoreImage);
-        storeImage.setImageResource(store.getImage());
+        bookDesTxt = (TextView) view.findViewById(R.id.bookDescription);
+        bookDesTxt.setText(bookTitle.getDescription());
 
-        storeCoverImage = (ImageView) view.findViewById(R.id.menuCoverImage);
-        storeCoverImage.setImageResource(store.getCoverImage());
+        bookAuthorTxt = (TextView) view.findViewById(R.id.bookAuthor);
+        bookAuthorTxt.setText(bookTitle.getAuthor());
 
-        dishListView = (ListView) view.findViewById(R.id.dishListView);
-        arrayDish = new ArrayList<Dish>();
-        AddArrayDish();
-        adapter = new DishAdapter(getActivity(), R.layout.dish_item, arrayDish);
-        dishListView.setAdapter(adapter);
-
-        dishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                _goto.GotoBooking(arrayDish.get(i));
-            }
-        });
+        bookImage = (ImageView) view.findViewById(R.id.bookImage);
+        Glide.with(getActivity()).load(bookTitle.getImage()).centerInside().into(bookImage);
 
         return view;
-    }
-
-    private void AddArrayDish(){
-        arrayDish.add(new Dish("Com chien 1", R.drawable.comchien, "com ngon", 30000));
-        arrayDish.add(new Dish("Com chien 2", R.drawable.comchien, "com ngon", 40000));
-        arrayDish.add(new Dish("Com chien 3", R.drawable.comchien, "com ngon", 80000));
-        arrayDish.add(new Dish("Com chien 4", R.drawable.comchien, "com ngon", 100000));
     }
 }

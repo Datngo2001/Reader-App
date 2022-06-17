@@ -8,15 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hcmute.edu.vn.reader.Goto;
+import hcmute.edu.vn.reader.MySingleton;
 import hcmute.edu.vn.reader.R;
-import hcmute.edu.vn.reader.list_adapter.StoreAdapter;
-import hcmute.edu.vn.reader.model.Store;
+import hcmute.edu.vn.reader.api.ApiService;
+import hcmute.edu.vn.reader.list_adapter.BooksAdapter;
+import hcmute.edu.vn.reader.model.BaseResponse;
+import hcmute.edu.vn.reader.model.BookTitle;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,15 +32,13 @@ import hcmute.edu.vn.reader.model.Store;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    Button toMenuBtn;
-    ListView storeList;
+    ListView bookList;
+    SearchView searchBooks;
 
-    ArrayList<Store> arrayStore;
-    StoreAdapter adapter;
+    List<BookTitle> arrayBooks;
+    BooksAdapter adapter;
 
     Goto _goto;
-
-
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,31 +70,53 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         _goto = (Goto) getActivity();
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        storeList = (ListView) view.findViewById(R.id.storeListView);
-        arrayStore = new ArrayList<Store>();
-        AddArrayStore();
-        adapter = new StoreAdapter(getActivity(), R.layout.store_item, arrayStore);
-        storeList.setAdapter(adapter);
 
-        storeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        bookList = (ListView) view.findViewById(R.id.bookListView);
+        searchBooks = (SearchView) view.findViewById(R.id.searchBooks);
+        searchBooks.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                _goto.GotoMenu(arrayStore.get(i));
+            public boolean onQueryTextSubmit(String s) {
+                prepareBookList(s);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                prepareBookList(s);
+                return true;
             }
         });
+
+        prepareBookList("");
 
         return view;
     }
 
-    private void AddArrayStore(){
-        arrayStore.add(new Store("Ong Bau", R.drawable.e563272c9ad83c099901902c0a7056eb,R.drawable.e563272c9ad83c099901902c0a7056eb, "Quan ngon UTE"));
-        arrayStore.add(new Store("Dat Ngo", R.drawable.canteen, R.drawable.canteen,"Sieu Ngon"));
-        arrayStore.add(new Store("Phuong Nam", R.drawable.seafood,R.drawable.seafood, "Quan ngon UTE"));
-        arrayStore.add(new Store("Phuong Nam", R.drawable.quancom,R.drawable.quancom, "Quan ngon UTE"));
-        arrayStore.add(new Store("Phuong Nam", R.drawable.canteen, R.drawable.canteen,"Quan ngon UTE"));
-        arrayStore.add(new Store("Phuong Nam", R.drawable.seafood, R.drawable.seafood,"Quan ngon UTE"));
+    private void prepareBookList(String searchQuery){
+        ApiService.apiService.searchBookTitle(MySingleton.getInstance().getCurrentToken(), searchQuery,1,10).enqueue(new Callback<BaseResponse<List<BookTitle>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<BookTitle>>> call, Response<BaseResponse<List<BookTitle>>> response) {
+                if(response.body() == null){
+                    return;
+                }
+                arrayBooks = response.body().getData();
+                adapter = new BooksAdapter(getActivity(), R.layout.book_item, arrayBooks);
+                bookList.setAdapter(adapter);
+
+                bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        _goto.GotoDetail(arrayBooks.get(i));
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<BookTitle>>> call, Throwable t) {
+                Toast.makeText(getContext(), "Please login or check your connection", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

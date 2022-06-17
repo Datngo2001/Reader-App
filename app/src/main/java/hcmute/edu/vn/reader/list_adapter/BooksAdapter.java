@@ -1,6 +1,8 @@
 package hcmute.edu.vn.reader.list_adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,26 +10,32 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import hcmute.edu.vn.reader.R;
+import hcmute.edu.vn.reader.model.BookTitle;
 import hcmute.edu.vn.reader.model.Store;
 
-public class StoreAdapter extends BaseAdapter {
+public class BooksAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private List<Store> storeList;
+    private List<BookTitle> bookList;
 
-    public StoreAdapter(Context context, int layout, List<Store> storeList) {
+    public BooksAdapter(Context context, int layout, List<BookTitle> bookList) {
         this.context = context;
         this.layout = layout;
-        this.storeList = storeList;
+        this.bookList = bookList;
     }
 
     @Override
     public int getCount() {
-        return storeList.size();
+        return bookList.size();
     }
 
     @Override
@@ -43,7 +51,7 @@ public class StoreAdapter extends BaseAdapter {
     private class ViewHolder{
         ImageView image;
         TextView txtTen;
-        TextView txtDescription;
+        TextView txtAuthor;
     }
 
     @Override
@@ -55,16 +63,22 @@ public class StoreAdapter extends BaseAdapter {
             view = inflater.inflate(layout, null);
             holder.txtTen = (TextView) view.findViewById(R.id.storeName);
             holder.image = (ImageView) view.findViewById(R.id.storeImage);
-            holder.txtDescription = (TextView) view.findViewById(R.id.storeDescription);
+            holder.txtAuthor = (TextView) view.findViewById(R.id.bookAuthor);
             view.setTag(holder);
         }else{
             holder = (ViewHolder) view.getTag();
         }
 
-        Store store = storeList.get(i);
-        holder.txtTen.setText(store.getName());
-        holder.txtDescription.setText(store.getDescription());
-        holder.image.setImageResource(store.getImage());
+        BookTitle bookTitle = bookList.get(i);
+        holder.txtTen.setText(bookTitle.getTitle());
+        holder.txtAuthor.setText(bookTitle.getAuthor());
+
+
+        Glide.with(context)
+                .load(bookTitle.getImage())
+                .centerInside()
+                .into(holder.image);
+
         return view;
     }
 }

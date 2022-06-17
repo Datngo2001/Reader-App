@@ -9,47 +9,73 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/menuCoverImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/quancom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/menuStoreImage"
-            android:scaleType="centerCrop"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="152dp"
-            android:src="@drawable/e563272c9ad83c099901902c0a7056eb"
+            android:id="@+id/bookImage"
+            android:layout_width="182dp"
+            android:layout_height="254dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
         <TextView
-            android:id="@+id/storeNameMenu"
-            android:layout_width="wrap_content"
+            android:id="@+id/bookTitle"
+            android:layout_width="182dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="208dp"
             android:text="Quan 1"
             android:textSize="24dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/menuStoreImage"
-            app:layout_constraintTop_toTopOf="@+id/menuCoverImage" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.567"
+            app:layout_constraintStart_toEndOf="@+id/bookImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.081" />
+
+        <TextView
+            android:id="@+id/bookAuthor"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/bookImage"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+            app:layout_constraintVertical_bias="0.036" />
+
+        <TextView
+            android:id="@+id/bookDescription"
+            android:layout_width="383dp"
+            android:layout_height="235dp"
+            android:overScrollMode="always"
+            android:text="TextView"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookImage"
+            app:layout_constraintVertical_bias="0.027" />
+
+        <Button
+            android:id="@+id/addToCartBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="Add to cart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookDescription"
+            app:layout_constraintVertical_bias="0.597" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/dishListView"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

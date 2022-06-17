@@ -20,6 +20,7 @@ import hcmute.edu.vn.reader.fragment.BookFragment;
 import hcmute.edu.vn.reader.fragment.ProfileFragment;
 import hcmute.edu.vn.reader.fragment.RegisterFragment;
 import hcmute.edu.vn.reader.fragment.SigninFragment;
+import hcmute.edu.vn.reader.model.BookTitle;
 import hcmute.edu.vn.reader.model.Dish;
 import hcmute.edu.vn.reader.model.Store;
 import hcmute.edu.vn.reader.model.User;
@@ -70,10 +71,10 @@ public class MainActivity extends AppCompatActivity implements Goto{
         gotoFragment(homeFragment);
     }
 
-    public void GotoMenu(Store store) {
-        BookFragment menuFragment = new BookFragment();
-        menuFragment.setStore(store);
-        gotoFragment(menuFragment);
+    public void GotoDetail(BookTitle bookTitle) {
+        BookFragment bookFragment = new BookFragment();
+        bookFragment.setBookTitle(bookTitle);
+        gotoFragment(bookFragment);
     }
 
     @Override
