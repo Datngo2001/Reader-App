@@ -20,8 +20,11 @@ import hcmute.edu.vn.reader.util.ConvertDate;
 
 public class BillAdapter extends BaseAdapter {
 
+    // current context
     private Context context;
+    // current layout
     private int layout;
+    // current list
     private List<BorrowBill> borrowBills;
 
     public BillAdapter(Context context, int layout, List<BorrowBill> borrowBills) {

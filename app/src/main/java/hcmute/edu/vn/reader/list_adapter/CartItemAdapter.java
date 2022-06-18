@@ -21,8 +21,11 @@ import hcmute.edu.vn.reader.data.UserDbHelper;
 import hcmute.edu.vn.reader.model.BookTitle;
 
 public class CartItemAdapter extends BaseAdapter {
+    // current context
     private Context context;
+    // current layout
     private int layout;
+    // current list
     private List<BookTitle> bookList;
 
     public CartItemAdapter(Context context, int layout, List<BookTitle> bookList) {

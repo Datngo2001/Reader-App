@@ -23,8 +23,11 @@ import hcmute.edu.vn.reader.model.Store;
 
 public class BooksAdapter extends BaseAdapter {
 
+    // current context
     private Context context;
+    // current layout
     private int layout;
+    // current list
     private List<BookTitle> bookList;
 
     public BooksAdapter(Context context, int layout, List<BookTitle> bookList) {

@@ -32,28 +32,24 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    // UI projection
     ListView bookList;
     SearchView searchBooks;
 
+    // current book list
     List<BookTitle> arrayBooks;
+
+    // list adapter
     BooksAdapter adapter;
 
+    // fragment navigator
     Goto _goto;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FistFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -93,6 +89,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    // search book list
     private void prepareBookList(String searchQuery){
         ApiService.apiService.searchBookTitle(MySingleton.getInstance().getCurrentToken(), searchQuery,1,10).enqueue(new Callback<BaseResponse<List<BookTitle>>>() {
             @Override

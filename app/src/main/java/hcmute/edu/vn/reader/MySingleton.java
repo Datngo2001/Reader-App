@@ -13,43 +13,32 @@ import com.android.volley.toolbox.Volley;
 import hcmute.edu.vn.reader.data.UserDbHelper;
 import hcmute.edu.vn.reader.model.User;
 
+// Singleton design partern
 public class MySingleton {
     private static MySingleton instance;
-//    private ImageLoader imageLoader;
+    // current context
     private static Context ctx;
+    // current user
     private User currentUser;
+    // current jwt token
     private String currentToken;
 
     private MySingleton(){
     }
+
     private MySingleton(Context context) {
         ctx = context;
         currentUser = getCurrentUser();
         currentToken = getCurrentToken();
-
-//        imageLoader = new ImageLoader(requestQueue,
-//                new ImageLoader.ImageCache() {
-//                    private final LruCache<String, Bitmap>
-//                            cache = new LruCache<String, Bitmap>(20);
-//
-//                    @Override
-//                    public Bitmap getBitmap(String url) {
-//                        return cache.get(url);
-//                    }
-//
-//                    @Override
-//                    public void putBitmap(String url, Bitmap bitmap) {
-//                        cache.put(url, bitmap);
-//                    }
-//                });
     }
+    // get current singleton
     public static synchronized MySingleton getInstance() {
         if (instance == null) {
             instance = new MySingleton();
         }
         return instance;
     }
-
+    // get current singleton with context
     public static synchronized MySingleton getInstance(Context context) {
         if (instance == null) {
             instance = new MySingleton(context);
@@ -57,6 +46,7 @@ public class MySingleton {
         return instance;
     }
 
+    // get current user
     public User getCurrentUser() {
         if (currentUser == null) {
             UserDbHelper helper = new UserDbHelper(ctx);
@@ -86,6 +76,7 @@ public class MySingleton {
         return currentUser;
     }
 
+    // get current token
     public String getCurrentToken(){
         if (currentToken == null) {
             UserDbHelper helper = new UserDbHelper(ctx);
@@ -109,6 +100,7 @@ public class MySingleton {
         return currentToken;
     }
 
+    // set new user and token
     public void setCurrentUserAndToken(User user, String token) {
         if(!token.startsWith("Bearer ")){
             token = "Bearer " + token;
@@ -133,6 +125,7 @@ public class MySingleton {
         this.currentToken = token;
     }
 
+    // delete current user
     public void logoutUser(){
         UserDbHelper helper = new UserDbHelper(ctx);
         SQLiteDatabase db = helper.getWritableDatabase();

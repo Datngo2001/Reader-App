@@ -65,45 +65,45 @@ public class MainActivity extends AppCompatActivity implements Goto{
     private void gotoFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer, fragment).commit();
     }
-
+    // go to home fragment
     @Override
     public void GotoHome() {
         HomeFragment homeFragment = new HomeFragment();
         gotoFragment(homeFragment);
     }
-
+    // go to detail fragment
     public void GotoDetail(BookTitle bookTitle) {
         BookFragment bookFragment = new BookFragment();
         bookFragment.setBookTitle(bookTitle);
         gotoFragment(bookFragment);
     }
-
+    // go to booking fragment
     @Override
     public void GotoBooking(List<BookTitle> bookTitles) {
         BookingFragment bookingFragment = new BookingFragment();
         bookingFragment.setBookTitles(bookTitles);
         gotoFragment(bookingFragment);
     }
-
+    // go to edit profile fragment
     @Override
     public void GotoEditProfile(User user) {
         EditProfileFragment editProfileFragment = new EditProfileFragment();
         editProfileFragment.setUser(user);
         gotoFragment(editProfileFragment);
     }
-
+    // go to profile fragment
     @Override
     public void GotoProfile() {
         ProfileFragment profileFragment = new ProfileFragment();
         gotoFragment(profileFragment);
     }
-
+    // go to login fragment
     @Override
     public void GotoLogin() {
         LoginFragment loginFragment = new LoginFragment();
         gotoFragment(loginFragment);
     }
-
+    // go to signin fragment
     @Override
     public void GotoSignin() {
         SigninFragment signinFragment = new SigninFragment();

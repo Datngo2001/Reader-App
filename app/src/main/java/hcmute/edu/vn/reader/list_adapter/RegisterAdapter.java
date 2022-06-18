@@ -22,8 +22,11 @@ import hcmute.edu.vn.reader.util.ConvertDate;
 
 public class RegisterAdapter extends BaseAdapter {
 
+    // current context
     private Context context;
+    // current layout
     private int layout;
+    // current list
     private List<BorrowRegister> registers;
 
     public RegisterAdapter(Context context, int layout, List<BorrowRegister> registers) {
